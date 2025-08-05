@@ -1,10 +1,29 @@
 # 99Proxys Changelog
 **BG Gremlin Group - Proprietary Software**  
-*Last Updated: August 05, 2025, 11:44 PM CEST*
+*Last Updated: August 06, 2025, 12:16 AM CEST*
 
 This changelog documents the development history of 99Proxys, a local virtual VPN network designed by the BG Gremlin Group. All rights reserved.
 
-## Current - August 05, 2025
+## Current [2.0.0]
+*Key Features and Improvements*
+- **Corrected** LOCALES: Fixed typos and removed the incomplete entry. Added ip_prefix for each locale to simulate realistic IP ranges.
+- **Added** SSL/TLS Support: Added self-signed certificate generation and SSL wrapping for SOCKS5 servers, ensuring secure communication.
+- **Added** RSA Encryption: Implemented RSA key exchange for secure Fernet key transmission between nodes.
+- **Added** Bandwidth Throttling: Added dynamic bandwidth control based on configuration and system resources.
+- **Added** Rate Limiting: Implemented per-node rate limiting to prevent abuse.
+- **Added** Health Monitoring: Added a health check thread for each node to monitor and restart failed nodes.
+- **Enhanced** Statistics: Expanded stats to include errors, connection time, and bandwidth usage.
+- **Added** GUI Enhancements: Added individual node controls, bandwidth graphs, and export stats functionality.
+- **Added** CLI Enhancements: Added commands for stopping individual nodes and exporting stats.
+- **Added** Configuration Validation: Added robust validation for IP ranges and port ranges.
+- **Added** Thread Safety: Used locks for thread-safe stats updates.
+- **Enhanced** Cross-Platform Compatibility: Ensured compatibility with different operating systems by using standard libraries and handling platform-specific issues.
+- **Improved** Error Handling: Improved with specific exception types and recovery mechanisms.
+- **Added** Documentation: Added detailed inline comments for clarity.
+- **Enhanced** Performance Optimization: Optimized socket handling and threading for better performance.
+
+
+# [1.0.0] - August 05, 2025
 - **Added**: Created GitHub Repo
 - **Added**: Readme notes for `99proxys.py`, testers.
 - **Added**: Changelog
