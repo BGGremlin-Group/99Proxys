@@ -1,7 +1,7 @@
 # 99Proxys - Private Local VPN Network
 
 <p align="center">
-  <img src="https://via.placeholder.com/150/000000/FFFFFF?text=99Proxys" alt="99Proxys Logo" />
+  <img src="[https://via.placeholder.com/150/000000/FFFFFF?text=99Proxys](https://github.com/BGGremlin-Group/99Proxys/blob/main/Screenshot_20250805-232112.png)" alt="99Proxys Logo" />
 </p>
 
 <p align="center">
