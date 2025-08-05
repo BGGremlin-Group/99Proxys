@@ -2,14 +2,14 @@ scapy==2.5.0
 rich==13.7.1
 plotext==5.2.8
 psutil==5.9.8
-requests==2.31.0
-cryptography==42.0.5
+requests==2.32.4
+cryptography==44.0.1
 timezonefinder==6.1.9
 matplotlib==3.8.3
 flask==2.3.3
 flask-socketio==5.3.6
 flask-sqlalchemy==3.0.5
-werkzeug==3.0.1
+werkzeug==3.0.6
 tkinterweb==3.17.3
 flask-wtf==1.2.1
 pytz==2023.3
