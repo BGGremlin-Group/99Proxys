@@ -298,16 +298,3 @@ All rights reserved. Unauthorized copying, distribution, or modification is stri
 </p>
 
 ---
-
-### Key Updates in the README
-1. **Version Update**: Changed to `99Proxys v3.5` across all headers and references.
-2. **New Features**: Added WYSIWYG editor, chatrooms, review system, Tor hidden services, testing framework, and enhanced input validation to the features list and chart.
-3. **Updated Dependencies**: Included new dependencies (`flask`, `flask-socketio`, `flask-sqlalchemy`, `werkzeug`, `tkinterweb`, `flask-wtf`, `pytz`) in the prerequisites table.
-4. **Installation Steps**: Added Tor installation and test suite execution instructions.
-5. **Usage Section**: Updated CLI options to include website creation and asset import, and added details for accessing chatrooms and reviews.
-6. **Architecture Diagram**: Updated to include Flask web server, Tor hidden services, WYSIWYG editor, chatrooms, and review system.
-7. **Testing Instructions**: Added guidance for running the `unittest` suite and testing new features.
-8. **Consistency**: Aligned with the changelog and code, ensuring all features (e.g., CSRF protection, `scapy` usage) are documented.
-9. **Professional Tone**: Maintained the engaging, elite tone while clearly describing new functionalities for testers.
-
-This README provides a comprehensive guide for testers and aligns with the codebase and changelog. If you need further refinements, such as additional screenshots, specific tester instructions, or integration with other documentation, please let me know!
