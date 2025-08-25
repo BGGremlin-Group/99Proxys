@@ -15,12 +15,12 @@ Listener TLS is optional; hop‑to‑hop crypto is RSA+Fernet with a framed sess
 
 > Quick start (Windows, PowerShell)
 
-python -m venv .venv; .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-# Run elevated if you set ASSIGN_VIRTUAL_IP=true
-python main.py
+`python -m venv .venv; .\.venv\Scripts\Activate.ps1`
+`pip install -r requirements.txt`
+``# Run elevated if you set ASSIGN_VIRTUAL_IP=true``
+`python main.py`
 
-To enable OS virtual IPs: run terminal as Administrator and set ASSIGN_VIRTUAL_IP=true (in .env or config).
+To enable OS virtual IPs: run terminal as Administrator and set `ASSIGN_VIRTUAL_IP=true` (in .env or config).
 
 
 
@@ -64,7 +64,7 @@ Project layout
 
 ---
 
-requirements.txt
+```requirements.txt
 
 cryptography==42.0.5
 Flask==2.3.3
@@ -80,11 +80,10 @@ matplotlib==3.8.3
 TimezoneFinder==6.1.9
 pytz==2023.3
 python-dotenv==1.0.1
-
-
+```
 ---
 
-main.py
+```main.py
 
 from 99proxys.logging_setup import init_logging
 from 99proxys.config import CONFIG, ensure_dirs, load_env_overrides, generate_self_signed_cert
@@ -155,11 +154,10 @@ if __name__ == "__main__":
 99proxys/__init__.py
 
 __all__ = []
-
-
+```
 ---
 
-99proxys/config.py
+```99proxys/config.py
 
 import os
 from pathlib import Path
@@ -251,11 +249,11 @@ def generate_self_signed_cert():
             format=serialization.PrivateFormat.TraditionalOpenSSL,
             encryption_algorithm=serialization.NoEncryption(),
         ))
-
+```
 
 ---
 
-99proxys/logging_setup.py
+```99proxys/logging_setup.py
 
 import logging
 from .config import LOG_DIR
@@ -270,11 +268,11 @@ def init_logging():
         format="%(asctime)s - %(levelname)s - %(message)s",
         filemode="a",
     )
-
+```
 
 ---
 
-99proxys/locales.py
+```99proxys/locales.py
 
 # Truncated for brevity – include your full 99 LOCALES here
 LOCALES = [
@@ -287,11 +285,11 @@ IOT_OUIS = [
     "00:0D:3F", "00:16:6C", "00:24:E4", "00:1E:C0", "00:26:66",
     "00:1A:22", "00:17:88", "00:21:CC", "00:24:81", "00:1D:0F"
 ]
-
+```
 
 ---
 
-99proxys/crypto.py
+```99proxys/crypto.py
 
 import os, base64, logging
 from cryptography.fernet import Fernet
@@ -340,11 +338,11 @@ class HopCrypto:
         except Exception as e:
             logging.error(f"decrypt_from_prev error: {e}")
             return data
-
+```
 
 ---
 
-99proxys/ip_assign.py (Windows only)
+```99proxys/ip_assign.py (Windows only)
 
 import subprocess, logging
 from .config import CONFIG
@@ -368,11 +366,11 @@ def assign_virtual_ip(interface: str, ip: str, mask: str = "255.255.255.0"):
         raise AdminRequired("Run PowerShell/Terminal as Administrator to assign virtual IPs.")
     # netsh interface ip add address "Ethernet" 192.168.x.y 255.255.255.0
     subprocess.run(["netsh", "interface", "ip", "add", "address", interface, ip, mask], check=True)
-
+```
 
 ---
 
-99proxys/socks.py
+```99proxys/socks.py
 
 import socket
 
@@ -430,11 +428,11 @@ def parse_dest(request_sock):
             raise OSError("resolve fail")
     else:
         raise NotImplementedError("ATYP not supported")
-
+```
 
 ---
 
-99proxys/node.py
+```99proxys/node.py
 
 import os, socket, socketserver, ssl, threading, time, logging, random, ipaddress
 from datetime import datetime
@@ -626,11 +624,11 @@ class ProxyNode:
             except Exception as e:
                 logging.error(f"stop server error {self.port}: {e}")
         self.active = False
-
+```
 
 ---
 
-99proxys/chain.py
+```99proxys/chain.py
 
 import os, random, ipaddress, socket, time, logging
 from .config import CONFIG, SITES_DIR
@@ -716,11 +714,11 @@ class ProxyChain:
             try: stop_hidden_service(w["name"])
             except Exception as e: logging.error(f"Stop HS error: {e}")
         self.nodes.clear(); self.websites.clear(); self.used_ports.clear(); self.used_ips.clear()
-
+```
 
 ---
 
-99proxys/tor.py (Windows tor.exe)
+```99proxys/tor.py (Windows tor.exe)
 
 import subprocess, time, logging
 from pathlib import Path
@@ -771,21 +769,21 @@ def stop_hidden_service(name: str):
             p.terminate(); p.wait(timeout=5)
         except Exception:
             p.kill()
-
+```
 
 ---
 
-99proxys/utils.py
+```99proxys/utils.py
 
 import random
 
 def choose_locale(locales):
     return random.choice(locales)
-
+```
 
 ---
 
-99proxys/gui.py (Windows Tkinter)
+```99proxys/gui.py (Windows Tkinter)
 
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -856,11 +854,11 @@ class ProxyGUI:
 
     def on_close(self):
         self.chain.stop(); self.root.destroy()
-
+```
 
 ---
 
-99proxys/webapp/__init__.py
+```99proxys/webapp/__init__.py
 
 from flask import Flask
 from flask_socketio import SocketIO
@@ -891,11 +889,11 @@ def create_flask_app():
     register_routes(app)
 
     return app
-
+```
 
 ---
 
-99proxys/webapp/models.py
+```99proxys/webapp/models.py
 
 from . import db
 from datetime import datetime
@@ -947,11 +945,11 @@ class ChatMessage(db.Model):
 def init_db(app):
     with app.app_context():
         db.create_all()
-
+```
 
 ---
 
-99proxys/webapp/routes.py
+```99proxys/webapp/routes.py
 
 from flask import request, jsonify, render_template, send_from_directory, redirect, flash
 from . import db, socketio, csrf
@@ -1072,11 +1070,11 @@ def register_routes(app):
     def status():
         websites = [{"name": w.name, "port": w.port, "onion_address": w.onion_address} for w in Website.query.all()]
         return jsonify({"websites": websites, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
-
+```
 
 ---
 
-99proxys/webapp/templates/chat.html
+```99proxys/webapp/templates/chat.html
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1097,11 +1095,11 @@ function send(){ const u=document.getElementById('user').value||'anon'; const t=
 </script>
 </body>
 </html>
-
+```
 
 ---
 
-99proxys/webapp/templates/reviews.html
+```99proxys/webapp/templates/reviews.html
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1130,11 +1128,11 @@ function send(){ const u=document.getElementById('user').value||'anon'; const t=
   {% endfor %}
 </body>
 </html>
-
+```
 
 ---
 
-99proxys/webapp/templates/editor.html
+```99proxys/webapp/templates/editor.html
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1161,11 +1159,11 @@ function send(){ const u=document.getElementById('user').value||'anon'; const t=
   </script>
 </body>
 </html>
-
+```
 
 ---
 
-README.md (snippet)
+```README.md (snippet)
 
 # 99Proxys – Windows‑Centric Modular Edition
 
@@ -1173,22 +1171,4 @@ README.md (snippet)
 - For OS virtual IP assignment, run **as Administrator** and set `ASSIGN_VIRTUAL_IP=true`.
 - Tor integration expects `tor.exe` in PATH or set `TOR_PATH` env var.
 - Listener TLS is off by default (`LISTENER_TLS=false`).
-
-
-
-Done! I dropped a Windows-centric, fully modular refactor into the canvas with:
-
-a clean package layout,
-
-Windows admin + netsh IP assignment,
-
-tor.exe hidden-service management,
-
-modular SOCKS5 nodes/chain,
-
-Flask WYSIWYG/chat/reviews,
-
-and a simple Tk GUI.
-
-
-If you want me to fill in the full 99-entry LOCALES list or wire up more tests, say the word and I’ll add them to the canvas.
+```
